@@ -80,10 +80,117 @@ flowchart LR
     E --> F["Custody events<br/>linked by hash"]
     F --> G["Dashboard, report<br/>and exports"]
 -------------------------------------------------------------------------------------------------
-The full architecture, data model and security model are in docs/ARCHITECTURE.md.Quick startUse it online: open the live demo.Run it locally. It is a single file, so there is nothing to build:Bashgit clone [https://github.com/vikashkumarjha-in/EvidenceLens.git](https://github.com/vikashkumarjha-in/EvidenceLens.git)
+The full architecture, data model and security model are in `docs/ARCHITECTURE.md`.
+
+## Quick start
+
+### Use it online: 
+Open the live demo.
+
+### Run it locally
+It is a single file, so there is nothing to build:
+
+```bash
+git clone https://github.com/vikashkumarjha-in/EvidenceLens.git
 cd EvidenceLens
 python -m http.server 8000
-Open http://localhost:8000. Use localhost or HTTPS, because the browser's hashing API needs a secure context.Deploy your own copy on GitHub Pages: fork the repository, open Settings > Pages, choose Deploy from a branch, branch main, folder / (root).Usage walkthroughSign in with any valid email and a password of 6 or more characters. This is a demo screen, not real authentication.Open Upload Evidence and add a file. The pipeline runs: Upload, Hash, Metadata, Analysis, Report.Review the gauges, heatmap, findings and custody timeline.Open Hash Verification later, select the same file, and confirm it still matches.Open Chain of Custody and run Verify chain integrity.Open Reports to print or save a PDF, or export JSON and the custody log.What is analysedFile typeChecks performedAny fileSHA-256, real type from magic bytes, extension mismatch detectionJPEGEXIF (creator, model, software, dates, GPS presence) and an Error Level Analysis heatmapPDFCreator, producer, creation and modification datesOther typesHash and signature checks onlyScoringThe authenticity score starts at 100 and loses points for each finding:FindingDeductionExtension does not match the real file type30Editing software named in metadata25Uneven ELA compression errorup to 30Modified date differs from creation date10No embedded metadata12Risk is Low at 80 or above, Medium at 55 or above, otherwise High. Weights are expert heuristics, not statistically calibrated probabilities. The full rationale is in docs/FORENSIC_METHODOLOGY.md.Privacy and securityFiles are processed locally and never uploaded. There are no network requests during analysis.Only the hash, metadata and results are saved, in your browser's localStorage. The file itself is not stored.Data is private to each browser and address. Other visitors to the same link see an empty tool.No third-party scripts, fonts or trackers.Do not commit real evidence files to this repository.To report a vulnerability, follow SECURITY.md.Limitations[!WARNING]Results are heuristic indicators. They can produce false positives and false negatives.Detection thresholds have not yet been validated against labelled datasets. The protocol is in docs/TEST_PLAN.md.Missing EXIF is common for images that passed through messaging apps, so it is a weak signal.The sign-in is a local UI gate. There is no database, real authentication or multi-user support.The custody chain detects partial edits but cannot stop someone who rewrites the whole chain. See the architecture document.News Verification checks wording only and cannot tell whether a claim is true. OCR and fact-check APIs need a backend and keys, so the source cards show "Not connected".PDF metadata is read only when stored as plain text. The heatmap is for JPEG only.Not suitable as court-ready evidence. Rules for electronic evidence differ by jurisdiction. Consult qualified counsel and a certified practitioner.DocumentationDocumentContentsProject overviewPurpose, problem, objectives, users, scope, intended use, success criteriaArchitectureComponents, data flow, data model, custody ledger, security model, decisions, target architectureDesignInformation architecture, flows, components, visual system, accessibilityForensic methodologyEvery technique, parameter, scoring rule, limitation and referenceTest planFunctional test cases and the dataset validation protocolChangelogRelease historyTech stackPlain HTML, CSS and JavaScript in one file, with no dependencies. It uses the Web Crypto API (SHA-256), the Canvas API (ELA) and localStorage. Charts are SVG and CSS.Project structurePlaintextEvidenceLens/
+```
+
+Open `http://localhost:8000`. Use localhost or HTTPS, because the browser's hashing API needs a secure context.
+
+### Deploy your own copy on GitHub Pages: 
+Fork the repository, open **Settings > Pages**, choose **Deploy from a branch**, branch `main`, folder `/ (root)`.
+
+---
+
+## Usage walkthrough
+
+1. **Sign in** with any valid email and a password of 6 or more characters. *(This is a demo screen, not real authentication.)*
+2. **Open Upload Evidence** and add a file. The pipeline runs: Upload, Hash, Metadata, Analysis, Report.
+3. **Review** the gauges, heatmap, findings and custody timeline.
+4. **Open Hash Verification** later, select the same file, and confirm it still matches.
+5. **Open Chain of Custody** and run *Verify chain integrity*.
+6. **Open Reports** to print or save a PDF, or export JSON and the custody log.
+
+---
+
+## What is analysed
+
+| File type | Checks performed |
+| :--- | :--- |
+| **Any file** | SHA-256, real type from magic bytes, extension mismatch detection |
+| **JPEG** | EXIF (creator, model, software, dates, GPS presence) and an Error Level Analysis (ELA) heatmap |
+| **PDF** | Creator, producer, creation and modification dates |
+| **Other types** | Hash and signature checks only |
+
+---
+
+## Scoring
+
+The authenticity score starts at **100** and loses points for each finding:
+
+| Finding | Deduction |
+| :--- | :--- |
+| Extension does not match the real file type | 30 |
+| Editing software named in metadata | 25 |
+| Uneven ELA compression error | up to 30 |
+| Modified date differs from creation date | 10 |
+| No embedded metadata | 12 |
+
+* Risk is **Low** at 80 or above, **Medium** at 55 or above, otherwise **High**. 
+* Weights are expert heuristics, not statistically calibrated probabilities. 
+* The full rationale is in `docs/FORENSIC_METHODOLOGY.md`.
+
+---
+
+## Privacy and security
+
+* **Local Processing:** Files are processed locally and never uploaded. There are no network requests during analysis.
+* **Storage:** Only the hash, metadata and results are saved in your browser's `localStorage`. The file itself is not stored.
+* **Privacy:** Data is private to each browser and address. Other visitors to the same link see an empty tool.
+* **Dependencies:** No third-party scripts, fonts or trackers.
+* **Safety:** Do not commit real evidence files to this repository.
+* **Vulnerabilities:** To report a vulnerability, follow `SECURITY.md`.
+
+---
+
+## Limitations
+
+> [!WARNING]
+> * Results are heuristic indicators. They can produce false positives and false negatives.
+> * Detection thresholds have not yet been validated against labelled datasets. The protocol is in `docs/TEST_PLAN.md`.
+> * Missing EXIF is common for images that passed through messaging apps, so it is a weak signal.
+> * The sign-in is a local UI gate. There is no database, real authentication or multi-user support.
+> * The custody chain detects partial edits but cannot stop someone who rewrites the whole chain. See the architecture document.
+> * News Verification checks wording only and cannot tell whether a claim is true. OCR and fact-check APIs need a backend and keys, so the source cards show "Not connected".
+> * PDF metadata is read only when stored as plain text. The heatmap is for JPEG only.
+> * **Not suitable as court-ready evidence.** Rules for electronic evidence differ by jurisdiction. Consult qualified counsel and a certified practitioner.
+
+---
+
+## Documentation
+
+| Document | Contents |
+| :--- | :--- |
+| **Project overview** | Purpose, problem, objectives, users, scope, intended use, success criteria |
+| **Architecture** | Components, data flow, data model, custody ledger, security model, decisions, target architecture |
+| **Design** | Information architecture, flows, components, visual system, accessibility |
+| **Forensic methodology** | Every technique, parameter, scoring rule, limitation and reference |
+| **Test plan** | Functional test cases and the dataset validation protocol |
+| **Changelog** | Release history |
+
+---
+
+## Tech stack
+
+Plain HTML, CSS and JavaScript in one file, with no dependencies. It uses the Web Crypto API (SHA-256), the Canvas API (ELA) and localStorage. Charts are SVG and CSS.
+
+---
+
+## Project structure
+
+```plaintext
+EvidenceLens/
 ├── index.html              Application (HTML, CSS and JavaScript)
 ├── README.md
 ├── LICENSE
@@ -98,17 +205,49 @@ Open http://localhost:8000. Use localhost or HTTPS, because the browser's hashin
     ├── TEST_PLAN.md
     ├── assets/             Banner
     └── screenshots/        README images
-TestingRun the cases in docs/TEST_PLAN.md. Quick checks:A phone camera photo should show EXIF data and Low risk.An image forwarded through a messaging app should show "No embedded metadata".A PNG renamed to .jpg should show an extension mismatch.Edit and re-save an uploaded file, then verify it. The result should be a mismatch.
+```
 
-**##Roadmap**
+---
 
-[x] SHA-256 hashing, file type validation, EXIF and PDF metadata[x] ELA heatmap and transparent scoring[x] Hash-linked chain of custody and hash verification[x] Dashboard, analytics, reports and exports[ ] Validation against public tampering datasets with published results[ ] FastAPI backend with PostgreSQL and JWT authentication[ ] Signed or server-anchored custody ledger[ ] Server-side OCR and real fact-check API lookups[ ] Copy-move, double-JPEG and noise-residual detection, and an ML classifier[ ] Video and audio metadata through ffprobe[ ] Keyboard-accessible tables and dialogs
+## Testing
 
-**##Contributing**
-Contributions are welcome. Please read CONTRIBUTING.md first. It lists the project rules, such as never sending file data off the device and documenting any change to the scoring.
+Run the cases in `docs/TEST_PLAN.md`. Quick checks:
+* **Phone photo:** A phone camera photo should show EXIF data and Low risk.
+* **Forwarded image:** An image forwarded through a messaging app should show "No embedded metadata".
+* **Extension mismatch:** A PNG renamed to `.jpg` should show an extension mismatch.
+* **Tamper detection:** Edit and re-save an uploaded file, then verify it. The result should be a mismatch.
 
-**## License**
-Released under the MIT License.
+---
 
-**##Disclaimer**
+## Roadmap
+
+* [x] SHA-256 hashing, file type validation, EXIF and PDF metadata
+* [x] ELA heatmap and transparent scoring
+* [x] Hash-linked chain of custody and hash verification
+* [x] Dashboard, analytics, reports and exports
+* [ ] Validation against public tampering datasets with published results
+* [ ] FastAPI backend with PostgreSQL and JWT authentication
+* [ ] Signed or server-anchored custody ledger
+* [ ] Server-side OCR and real fact-check API lookups
+* [ ] Copy-move, double-JPEG and noise-residual detection, and an ML classifier
+* [ ] Video and audio metadata through ffprobe
+* [ ] Keyboard-accessible tables and dialogs
+
+---
+
+## Contributing
+
+Contributions are welcome. Please read `CONTRIBUTING.md` first. It lists the project rules, such as never sending file data off the device and documenting any change to the scoring.
+
+---
+
+## License
+
+Released under the **MIT License**.
+
+---
+
+## Disclaimer
+
 For education and demonstration. Not a substitute for professional digital forensic analysis or legal advice.
+
