@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/banner.svg" alt="EvidenceLens: digital evidence integrity and triage" width="100%">
+  <img src="docs/assets/banner.png" alt="EvidenceLens: digital evidence integrity and triage" width="100%">
 </p>
 <p align="center">
   <a href="https://vikashkumarjha-in.github.io/EvidenceLens/"><b>Live demo</b></a> &nbsp;·&nbsp;
