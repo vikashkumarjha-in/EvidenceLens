@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>EvidenceLens</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#f3f5fa;--cd:#fff;--tx:#0f172a;--mu:#5b6b85;--bd:#dbe2ee;--ac:#2456d6;--ok:#15803d;--wa:#b45309;--er:#c42626;color-scheme:light}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0a1120;--cd:#111b30;--tx:#e6ecf8;--mu:#93a2bd;--bd:#223250;--ac:#5b8dff;--ok:#34d399;--wa:#fbbf24;--er:#f87171;color-scheme:dark}}
+:root[data-theme=dark]{--bg:#0a1120;--cd:#111b30;--tx:#e6ecf8;--mu:#93a2bd;--bd:#223250;--ac:#5b8dff;--ok:#34d399;--wa:#fbbf24;--er:#f87171;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+h2,h3,h4{margin:.4em 0;font-family:Georgia,"Iowan Old Style",serif}h3{font-size:16px}h4{font-size:13px;color:var(--mu);margin-top:16px;font-family:inherit;font-weight:600}
+label{font-size:12px;color:var(--mu)}
+.app{display:grid;grid-template-columns:215px 1fr;min-height:100vh}
+nav{background:var(--cd);border-right:1px solid var(--bd);padding:14px 10px;position:sticky;top:0;height:100vh}
+nav button{display:block;width:100%;text-align:left;background:none;border:0;color:var(--tx);padding:9px 10px;border-radius:8px;font:inherit;cursor:pointer}
+nav button.on{background:color-mix(in srgb,var(--ac) 14%,transparent);color:var(--ac);font-weight:600}
+.logo{font:700 17px Georgia,serif;padding:6px 10px 14px}
+main{padding:14px;min-width:0}
+.hd{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-bottom:12px}.hd input{flex:1;min-width:140px;margin:0}
+input,select{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:9px 10px;font:inherit;width:100%;margin:4px 0 10px}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin:10px 0}.row input{flex:1;min-width:140px;margin:0}.row select{width:auto;margin:0}
+button.b,button.s{border-radius:8px;padding:9px 14px;font:inherit;cursor:pointer;border:1px solid var(--bd)}
+button.b{background:var(--ac);color:#fff;border-color:var(--ac)}button.s{background:var(--cd);color:var(--tx)}button.er{color:var(--er)}
+:focus-visible{outline:2px solid var(--ac);outline-offset:2px}
+.c{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:14px;margin-bottom:12px}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:12px}.cards .c{margin:0}
+.big{font:700 32px Georgia,serif}
+.g3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}.g3 .c{margin:0}.g3+.c{margin-top:12px}
+.g2{display:grid;grid-template-columns:150px 1fr;gap:14px;align-items:start}
+.ov{overflow-x:auto}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--bd);white-space:nowrap}th{color:var(--mu);font-weight:500;font-size:12px}
+tr[onclick]{cursor:pointer}tr[onclick]:hover{background:var(--bg)}
+.kv td{white-space:normal;padding:4px 10px 4px 0;border:0}
+.mono{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px}.hs{word-break:break-all;background:var(--bg);padding:8px;border-radius:8px}
+.mu{color:var(--mu)}.sm{font-size:12px}.ok{color:var(--ok)}.wa{color:var(--wa)}.er{color:var(--er)}
+.p{padding:1px 8px;border-radius:99px;border:1px solid currentColor;font-size:12px}
+.br{display:grid;grid-template-columns:72px 1fr 28px;gap:8px;align-items:center;margin:7px 0}.br i{height:8px;background:var(--bd);border-radius:9px;overflow:hidden}.br b{display:block;height:100%}.br em{font-style:normal;text-align:right}
+.dz{border:2px dashed var(--bd);border-radius:12px;padding:34px 14px;text-align:center;cursor:pointer}
+.pl{display:flex;gap:6px}.pl div{flex:1;text-align:center;font-size:12px;color:var(--mu)}
+.pl i{display:block;width:30px;height:30px;line-height:26px;margin:0 auto 4px;border-radius:50%;border:2px solid var(--bd);font-style:normal}
+.pl .dn{color:var(--ok)}.pl .dn i{border-color:var(--ok)}.pl .cur{color:var(--wa)}.pl .cur i{border-color:var(--wa)}
+.heat{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;max-width:280px}.heat i{aspect-ratio:1;border-radius:3px}
+.tl>div{border-left:2px solid var(--ac);padding:0 0 10px 10px}
+.ov2{position:fixed;inset:0;background:#0009;display:flex;align-items:flex-start;justify-content:center;overflow:auto;padding:max(14px,env(safe-area-inset-top,0px)) 12px 24px;z-index:20}
+.md{background:var(--cd);border:1px solid var(--bd);border-radius:14px;padding:16px;max-width:680px;width:100%}
+pre{overflow:auto;font-size:11px;white-space:pre-wrap;word-break:break-all}
+.g3w{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-bottom:12px}.g3w>.c{margin:0}.pie{width:130px;height:130px;border-radius:50%}
+.tr{display:block;height:8px;background:var(--bd);border-radius:9px;overflow:hidden}.tr b{display:block;height:100%}
+textarea{background:var(--bg);color:var(--tx);border:1px solid var(--bd);border-radius:8px;padding:9px 10px;font:inherit;width:100%;margin:4px 0 10px}
+@media(max-width:760px){.app{grid-template-columns:1fr}nav{position:static;height:auto;display:flex;overflow-x:auto;border-right:0;border-bottom:1px solid var(--bd);padding:6px}nav button{width:auto;white-space:nowrap}.logo{display:none}.g2{grid-template-columns:1fr}}
+@media print{.noprint{display:none!important}body{background:#fff;color:#000}.app{display:block}.c{border:0}}
+</style></head><body><div id="app"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+let DB={ev:[],seq:0},S={v:'dash',q:'',f:'all',sel:null,rep:null,cs:null,cur:null,user:null},busy=null;
+try{DB=JSON.parse(localStorage.getItem('evl'))||DB}catch(e){}
+DB.lat=DB.lat||{};try{S.user=JSON.parse(sessionStorage.getItem('evu'))}catch(e){}
+const save=()=>{const t=performance.now();try{localStorage.setItem('evl',JSON.stringify(DB))}catch(e){}DB.lat.Storage=Math.round(performance.now()-t)};
+const hex=b=>[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('');
+const sha=async b=>hex(await crypto.subtle.digest('SHA-256',b)),shaS=s=>sha(new TextEncoder().encode(s));
+const Z='0'.repeat(64),fm=b=>b>1048576?(b/1048576).toFixed(2)+' MB':(b/1024).toFixed(1)+' KB';
+const col=r=>r==='Low'?'ok':r==='Medium'?'wa':'er',stt=e=>e.fails?'tampered':e.risk==='Low'?'verified':'flagged',stc=e=>e.fails?'er':e.risk==='Low'?'ok':'wa';
+const catOf=k=>['jpeg','png','gif','webp'].includes(k)?'image':k==='pdf'?'document':k==='mp4'?'video':'other';
+
+/* ---------- forensic engine ---------- */
+const sniff=u=>{const s=(a,b)=>String.fromCharCode(...u.slice(a,b));
+ if(u[0]===255&&u[1]===216)return'jpeg';if(s(0,4)==='\x89PNG')return'png';if(s(0,4)==='%PDF')return'pdf';if(s(0,3)==='GIF')return'gif';
+ if(s(0,4)==='RIFF'&&s(8,12)==='WEBP')return'webp';if(s(4,8)==='ftyp')return'mp4';return'other'};
+function tiff(u,b){const r={};try{const dv=new DataView(u.buffer,u.byteOffset,u.byteLength),le=u[b]===73,g16=o=>dv.getUint16(b+o,le),g32=o=>dv.getUint32(b+o,le),
+ T={271:'Make',272:'Model',305:'Software',306:'DateTime',36867:'DateTimeOriginal'},
+ str=(o,n)=>{let s='';for(let i=0;i<n&&u[b+o+i];i++)s+=String.fromCharCode(u[b+o+i]);return s.trim()},
+ rd=(o,d)=>{const n=g16(o);for(let i=0;i<n;i++){const e=o+2+i*12,t=g16(e);
+  if(T[t]&&g16(e+2)===2){const c=g32(e+4);r[T[t]]=str(c>4?g32(e+8):e+8,c)}
+  if(d<2&&t===34665)rd(g32(e+8),d+1);if(t===34853)r.GPS=1}};
+ rd(g32(4),0)}catch(x){}return r}
+function exif(u){let p=2;while(p+8<u.length&&u[p]===255){const m=u[p+1],l=(u[p+2]<<8)|u[p+3];
+ if(m===225&&String.fromCharCode(u[p+4],u[p+5],u[p+6],u[p+7])==='Exif')return tiff(u,p+10);if(m===218)break;p+=2+l}return{}}
+function pdfmeta(u){const s=new TextDecoder('latin1').decode(u),g=k=>{const m=s.match(new RegExp('/'+k+'\\s*\\(([^)]{0,80})\\)'));return m?m[1].trim():''},d=x=>{const m=x.match(/D:(\d{4})(\d\d)(\d\d)(\d\d)?(\d\d)?(\d\d)?/);return m?m[1]+'-'+m[2]+'-'+m[3]+' '+(m[4]||'00')+':'+(m[5]||'00')+':'+(m[6]||'00'):x};
+ const r={Make:g('Creator'),Software:g('Producer'),DateTimeOriginal:d(g('CreationDate')),DateTime:d(g('ModDate'))};Object.keys(r).forEach(k=>{if(!r[k])delete r[k]});return r}
+function ela(f){return new Promise(res=>{const url=URL.createObjectURL(f),im=new Image();im.onerror=()=>res(null);
+ im.onload=()=>{try{const w=Math.min(im.width,800),h=Math.max(1,Math.round(im.height*w/im.width)),c=document.createElement('canvas');c.width=w;c.height=h;
+  const x=c.getContext('2d',{willReadFrequently:true});x.drawImage(im,0,0,w,h);const a=x.getImageData(0,0,w,h).data;
+  c.toBlob(bl=>{const i2=new Image(),u2=URL.createObjectURL(bl);i2.onerror=()=>res(null);
+   i2.onload=()=>{x.clearRect(0,0,w,h);x.drawImage(i2,0,0,w,h);const d=x.getImageData(0,0,w,h).data,G=8,cs=Array(64).fill(0),cn=Array(64).fill(0);
+    for(let py=0;py<h;py++)for(let px=0;px<w;px++){const k=(py*w+px)*4,e=Math.abs(a[k]-d[k])+Math.abs(a[k+1]-d[k+1])+Math.abs(a[k+2]-d[k+2]),g=Math.min(7,(py*G/h)|0)*G+Math.min(7,(px*G/w)|0);cs[g]+=e;cn[g]++}
+    const m=cs.map((s,i)=>s/Math.max(1,cn[i])/3),mean=m.reduce((p,q)=>p+q)/64,sd=Math.sqrt(m.reduce((p,q)=>p+(q-mean)**2,0)/64);
+    URL.revokeObjectURL(url);URL.revokeObjectURL(u2);res({grid:m,cv:mean?sd/mean:0})};i2.src=u2},'image/jpeg',.75)}catch(e){res(null)}};im.src=url})}
+function score(m){let s=100;const f=[];
+ if(m.mismatch){s-=30;f.push('File extension does not match the real file signature.')}
+ if(m.exif){if(!Object.keys(m.exif).length){s-=12;f.push('No embedded metadata. Messaging apps and editors strip it, so this alone is not proof of tampering.')}
+  else{if(/photoshop|gimp|lightroom|snapseed|canva|pixlr|affinity|ilovepdf|sejda|smallpdf|pdfescape|foxit/i.test(m.exif.Software||'')){s-=25;f.push('Editing software recorded in metadata: '+m.exif.Software+'.')}
+   if(m.exif.DateTime&&m.exif.DateTimeOriginal&&m.exif.DateTime!==m.exif.DateTimeOriginal){s-=10;f.push('Modified time differs from capture time.')}}}
+ else f.push('EXIF and compression analysis apply to JPEG only. This file received hash and signature checks.');
+ if(m.ela){const p=Math.min(30,Math.max(0,(m.ela.cv-.6)*60));if(p>3){s-=p;f.push('Compression error is uneven across the image, which can indicate a local edit.')}}
+ s=Math.max(0,Math.round(s));return{s,risk:s>=80?'Low':s>=55?'Medium':'High',f}}
+
+/* ---------- chain of custody (hash-linked) ---------- */
+async function log(e,a,d,by='System'){const p=e.chain.length?e.chain[e.chain.length-1].h:Z,c={t:new Date().toISOString(),a,by,d:d||'',p};c.h=await shaS(p+c.t+c.a+c.by+c.d);e.chain.push(c)}
+async function chainOk(e){let p=Z;for(const c of e.chain){if(c.p!==p||c.h!==await shaS(p+c.t+c.a+c.by+c.d))return false;p=c.h}return true}
+
+/* ---------- pipeline ---------- */
+const ST=['Upload','Hash','Metadata','Analysis','Report'];
+const pipe=b=>`<div class="pl">${ST.map((s,i)=>`<div class="${b&&b.s>i?'dn':b&&b.s===i?'cur':''}"><i>${b&&b.s>i?'✓':i+1}</i>${s}</div>`).join('')}</div>${b?`<i class="tr"><b style="width:${(b.s+1)*20}%;background:var(--wa)"></b></i><p class="mu sm">${esc(b.name)}: analysis running…</p>`:'<p class="mu sm">Idle. Add a file to begin.</p>'}`;
+async function ingest(f){const st=s=>{busy={s,name:f.name};const p=$('#pipe');if(p)p.innerHTML=pipe(busy)},w=()=>new Promise(r=>setTimeout(r,250));
+ st(0);const ta=performance.now(),buf=await f.arrayBuffer(),u=new Uint8Array(buf);DB.lat.Upload=Math.round(performance.now()-ta);await w();
+ st(1);if(!window.crypto||!crypto.subtle)throw new Error('Web Crypto is unavailable in this browser');const t1=performance.now(),hash=await sha(buf);DB.lat.Hash=Math.round(performance.now()-t1);await w();
+ st(2);const t2=performance.now(),kind=sniff(u),ex=kind==='jpeg'?exif(u):kind==='pdf'?pdfmeta(u):null,ext=f.name.split('.').pop().toLowerCase(),exp={jpg:'jpeg',jpeg:'jpeg',png:'png',pdf:'pdf',gif:'gif'}[ext],mismatch=!!exp&&exp!==kind;DB.lat.Metadata=Math.round(performance.now()-t2);await w();
+ st(3);const t3=performance.now(),el=kind==='jpeg'?await ela(f):null;DB.lat.Analysis=Math.round(performance.now()-t3);await w();
+ const sc=score({exif:ex,ela:el,mismatch});st(4);await w();
+ const id='EVD-'+new Date().getFullYear()+'-'+(1000+(++DB.seq));
+ const e={id,name:f.name,size:f.size,kind,cat:catOf(kind),hash,ts:new Date().toISOString(),by:S.user.name,exif:ex,ela:el&&{g:el.grid.map(x=>+x.toFixed(2)),cv:+el.cv.toFixed(3)},mismatch,score:sc.s,risk:sc.risk,find:sc.f,fails:0,chain:[]};
+ await log(e,'Evidence uploaded',f.name+' ('+fm(f.size)+')',S.user.name);await log(e,'SHA-256 generated',hash.slice(0,16)+'…');
+ await log(e,'Metadata scan',ex===null?'EXIF not applicable':Object.keys(ex).length?'EXIF present':'EXIF absent');
+ await log(e,'Integrity analysis','Score '+sc.s+'%, '+sc.risk+' risk');await log(e,'Report ready','');
+ DB.ev.push(e);S.cur=id;save();busy=null;return id}
+async function ingestAll(fs){let last;for(const f of [...fs]){try{last=await ingest(f)}catch(x){busy=null;const p=$('#pipe');if(p)p.innerHTML=`<p class="er">Could not process ${esc(f.name)}: ${esc(x.message)}</p>`;return}}
+ if(last)S.cur=last;render()}
+async function verify(f){if(!f)return;const h=await sha(await f.arrayBuffer()),id=$('#vs').value,t=id?DB.ev.find(e=>e.id===id):DB.ev.find(e=>e.hash===h),o=$('#vr');
+ if(!t){o.innerHTML=`<p class="er">No record in the registry matches this file.</p><p class="mono hs">${h}</p>`;return}
+ const ok=t.hash===h;if(!ok)t.fails=(t.fails||0)+1;await log(t,ok?'Integrity verified':'Integrity check FAILED',f.name,S.user.name);save();
+ o.innerHTML=`<p class="${ok?'ok':'er'}"><b>${ok?'Match':'Mismatch'}</b>: ${t.id} ${ok?'is unchanged since upload.':'differs from the stored hash. Treat it as altered.'}</p><p class="mono hs">stored&nbsp;&nbsp;${t.hash}<br>current ${h}</p>`}
+async function chk(id){const e=DB.ev.find(x=>x.id===id),ok=await chainOk(e);$('#ck').innerHTML=ok?'<span class="ok">Chain intact: every entry links to the previous hash.</span>':'<span class="er">Chain broken: an entry was altered.</span>'}
+function del(id,b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Click again to confirm';return}DB.ev=DB.ev.filter(e=>e.id!==id);save();S.sel=null;render()}
+const cj=id=>{$('#js').textContent=JSON.stringify(DB.ev.find(x=>x.id===id),null,2)};
+
+/* ---------- ui helpers ---------- */
+const bars=r=>{const m=Math.max(1,...r.map(x=>x[1]));return r.map(x=>`<div class="br"><span>${esc(x[0])}</span><i><b style="width:${x[1]/m*100}%;background:var(--${x[2]||'ac'})"></b></i><em>${x[1]}</em></div>`).join('')};
+const gauge=(s,c)=>`<svg viewBox="0 0 36 36" width="104" height="104"><circle cx="18" cy="18" r="15.9" fill="none" style="stroke:var(--bd)" stroke-width="3"/><circle cx="18" cy="18" r="15.9" fill="none" style="stroke:var(--${c})" stroke-width="3" stroke-linecap="round" pathLength="100" stroke-dasharray="${s} 100" transform="rotate(-90 18 18)"/><text x="18" y="20.6" text-anchor="middle" font-size="8" font-weight="700" style="fill:var(--tx)">${s}%</text></svg>`;
+const heat=g=>{const m=Math.max(...g,1);return`<div class="heat">${g.map(v=>`<i title="${v}" style="background:color-mix(in srgb,var(--er) ${Math.round(v/m*100)}%,var(--bd))"></i>`).join('')}</div><p class="mu sm">Brighter cells compress differently from the rest of the image. This is an indicator, not proof of editing.</p>`};
+const meta=e=>{const x=e.exif,r=x===null?[['EXIF','Not applicable for this file type']]:Object.keys(x).length?[['Creator',x.Make],['Model',x.Model],['Software',x.Software],['Created',x.DateTimeOriginal],['Modified',x.DateTime],['GPS',x.GPS?'Present':'Absent']].filter(a=>a[1]):[['EXIF','None found']];return`<table class="kv">${r.map(a=>`<tr><td class="mu">${a[0]}</td><td>${esc(a[1])}</td></tr>`).join('')}</table>`};
+const tl=e=>`<div class="tl">${e.chain.map(c=>`<div><b>${esc(c.a)}</b> <span class="mu sm">${esc(c.by)}, ${new Date(c.t).toLocaleTimeString()}</span><div class="mu sm">${esc(c.d)}</div></div>`).join('')}</div>`;
+const finds=e=>e.find.length?`<ul>${e.find.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:'<p class="mu">No anomalies found by the checks that were run.</p>';
+const table=l=>l.length?`<div class="ov"><table><tr><th>ID</th><th>File</th><th>Type</th><th>Uploaded</th><th>SHA-256</th><th>Score</th><th>Status</th><th>View</th></tr>${l.map(e=>`<tr onclick="S.sel=S.cur='${e.id}';render()"><td class="mono">${e.id}</td><td>${esc(e.name)}</td><td>${e.cat}</td><td>${new Date(e.ts).toLocaleString()}</td><td class="mono">${e.hash.slice(0,10)}…</td><td>${e.score}%</td><td><span class="p ${stc(e)}">${stt(e)}</span></td><td>👁</td></tr>`).join('')}</table></div>`:'<p class="mu">No evidence found. Add files on the Upload page.</p>';
+const list=()=>DB.ev.filter(e=>(S.f==='all'||stt(e)===S.f)&&(!S.q||(e.id+e.name+e.hash).toLowerCase().includes(S.q.toLowerCase()))).slice().reverse();
+const modal=e=>`<div class="ov2 noprint" onclick="if(event.target===this){S.sel=null;render()}"><div class="md"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Evidence ${e.id}</h3><button class="s" onclick="S.sel=null;render()">Close</button></div>
+<p><b>${esc(e.name)}</b> <span class="p ${stc(e)}">${stt(e)}</span><br><span class="mu sm">${e.cat}, ${fm(e.size)}, uploaded ${new Date(e.ts).toLocaleString()} by ${esc(e.by)}</span></p>
+<div class="g2"><div style="text-align:center">${gauge(e.score,col(e.risk))}<div class="sm">Authenticity, ${e.risk} risk</div></div><div><h4>SHA-256</h4><div class="mono hs">${e.hash}</div><h4>Metadata</h4>${meta(e)}</div></div>
+${e.ela?`<h4>Compression error map</h4>${heat(e.ela.g)}`:''}<h4>Findings</h4>${finds(e)}<h4>Chain of custody</h4>${tl(e)}
+<div class="row"><button class="b" onclick="S.rep='${e.id}';go('rep')">Generate report</button><button class="s er" onclick="del('${e.id}',this)">Delete evidence</button></div></div></div>`;
+const report=e=>`<div class="c" id="rp"><h2>EvidenceLens investigation report</h2><p class="mu sm">Generated ${new Date().toLocaleString()} by ${esc(S.user.name)}</p>
+<h4>Evidence details</h4><table class="kv">${[['ID',e.id],['File',e.name],['Type',e.cat],['Size',fm(e.size)],['Uploaded',new Date(e.ts).toLocaleString()],['Uploaded by',e.by]].map(r=>`<tr><td class="mu">${r[0]}</td><td>${esc(r[1])}</td></tr>`).join('')}</table>
+<h4>SHA-256</h4><div class="mono hs">${e.hash}</div><h4>Integrity analysis</h4><p>Authenticity score ${e.score}%, ${e.risk} risk, status ${stt(e)}.</p>
+<h4>Metadata</h4>${meta(e)}<h4>Findings</h4>${finds(e)}<h4>Chain of custody</h4>${tl(e)}
+<p class="mu sm">Automated heuristic analysis. Results are indicators and should be corroborated by a qualified examiner.</p>
+<div class="row noprint"><button class="b" onclick="print()">Print or save as PDF</button><button class="s" onclick="cj('${e.id}')">Show JSON</button></div><pre id="js" class="noprint"></pre></div>`;
+
+/* ---------- views ---------- */
+const V={
+ev(){return`<div class="c"><div class="row"><input placeholder="Filter by ID, file name or hash" value="${esc(S.q)}" oninput="S.q=this.value;$('#tb').innerHTML=table(list())"><select onchange="S.f=this.value;$('#tb').innerHTML=table(list())">${['all','verified','flagged','tampered'].map(x=>`<option ${S.f===x?'selected':''}>${x}</option>`).join('')}</select><button class="s" onclick="refresh()">↻ Refresh</button><button class="s er" onclick="wipe(this)">Clear all data</button></div><div id="tb">${table(list())}</div></div>`},
+ver(){return`<div class="c"><h3>Hash verification</h3><p class="mu">Select the file again to confirm it still matches the hash recorded at upload.</p><label>Compare against</label><select id="vs"><option value="">Auto-match by hash</option>${DB.ev.map(e=>`<option value="${e.id}">${e.id}, ${esc(e.name)}</option>`).join('')}</select><label>File to check</label><input type="file" onchange="verify(this.files[0])"><div id="vr"></div></div>`},
+chain(){const e=DB.ev.find(x=>x.id===S.cs);return`<div class="c"><h3>Chain of custody</h3><select onchange="S.cs=this.value;render()"><option value="">Choose evidence</option>${DB.ev.map(x=>`<option value="${x.id}" ${S.cs===x.id?'selected':''}>${x.id}, ${esc(x.name)}</option>`).join('')}</select>${e?`${tl(e)}<button class="b" onclick="chk('${e.id}')">Verify chain integrity</button><p id="ck"></p>`:''}</div>`},
+rep(){const e=DB.ev.find(x=>x.id===S.rep);return`<div class="c noprint"><h3>Reports</h3>${DB.ev.length?DB.ev.map(x=>`<button class="s" style="margin:0 6px 6px 0" onclick="S.rep='${x.id}';render()">${x.id}</button>`).join(''):'<p class="mu">No evidence yet.</p>'}</div>${e?report(e):''}`}};
+
+/* ---------- video-style panels ---------- */
+const last=()=>DB.ev.find(e=>e.id===S.cur)||DB.ev[DB.ev.length-1];
+const mt=e=>{const x=e.exif;return x===null?50:!Object.keys(x).length?40:Math.max(0,100-(/photoshop|gimp|lightroom|snapseed|canva|pixlr|affinity|ilovepdf|sejda|smallpdf|pdfescape|foxit/i.test(x.Software||'')?25:0)-(x.DateTime&&x.DateTimeOriginal&&x.DateTime!==x.DateTimeOriginal?10:0))};
+const conf=e=>60+(e.kind==='jpeg'?30:0)+(e.exif&&Object.keys(e.exif).length?10:0),hi=e=>e.fails?0:100;
+const axes=e=>[['Hash',hi(e)],['Analysis',e.score],['Metadata',mt(e)],['Timestamp',e.exif&&e.exif.DateTime&&e.exif.DateTimeOriginal&&e.exif.DateTime!==e.exif.DateTimeOriginal?60:e.exif&&e.exif.DateTime?100:75],['Source',e.exif&&e.exif.Make?100:60]];
+const bars2=r=>r.map(x=>`<div style="margin:8px 0"><div class="row" style="justify-content:space-between;margin:0 0 3px"><span>${x[0]}</span><b>${x[1]}%</b></div><i class="tr"><b style="width:${x[1]}%;background:var(--${x[1]>=75?'ok':x[1]>=50?'wa':'er'})"></b></i></div>`).join('');
+const panels=e=>{if(!e)return`<div class="c"><h3>No evidence analysed yet</h3><p class="mu">Upload a file to see tamper detection, the authenticity score and the custody trail here.</p></div>`;
+ const tp=100-e.score,cf=conf(e);
+ return`<div class="g3w"><div class="c"><div class="row" style="justify-content:space-between;margin-top:0"><h3>AI tampering detection</h3><span class="mono mu">${e.id}</span></div><div class="row" style="justify-content:space-around;text-align:center"><div>${gauge(cf,'ac')}<div class="sm mu">Analysis confidence</div></div><div>${gauge(tp,tp>30?'er':'ok')}<div class="sm mu">Tamper probability</div></div></div><h4>Detection heatmap</h4>${e.ela?heat(e.ela.g):'<p class="mu sm">The heatmap is available for JPEG images. This file received hash, signature and metadata checks.</p>'}<p class="p ${e.fails?'er':col(e.risk)}" style="display:block;margin-top:10px;border-radius:8px">Classification: ${e.fails?'Tampered':e.risk==='Low'?'Likely authentic':e.risk==='Medium'?'Needs review':'Suspicious'}</p></div>
+<div class="c"><h3>Authenticity engine</h3><div style="text-align:center">${gauge(e.score,col(e.risk))}<div><span class="p ${col(e.risk)}">${e.risk} risk</span></div></div>${bars2([['Analysis confidence',cf],['Hash integrity',hi(e)],['Metadata trust',mt(e)]])}<div class="row">${['Low','Medium','High'].map(r=>`<span class="p ${e.risk===r?col(r):'mu'}">${r}</span>`).join('')}</div></div>
+<div class="c"><h3>Chain of custody</h3>${tl(e)}</div></div>`};
+const pie=r=>{const t=r.reduce((a,x)=>a+x[1],0)||1;let a=0;const g=r.map(x=>{const s=a;a+=x[1]/t*100;return`var(--${x[2]}) ${s}% ${a}%`}).join(',');return`<div class="pie" style="background:${r.some(x=>x[1])?`conic-gradient(${g})`:'var(--bd)'}"></div><div class="sm" style="margin-top:8px">${r.map(x=>`<span style="color:var(--${x[2]})">●</span> ${x[0]} ${x[1]}`).join(' &nbsp; ')}</div>`};
+const line=d=>{const m=Math.max(1,...d.map(x=>x[1])),y=v=>70-v/m*60;return`<svg viewBox="0 0 260 90" width="100%"><polyline points="${d.map((x,i)=>`${i*40+10},${y(x[1])}`).join(' ')}" fill="none" style="stroke:var(--ac)" stroke-width="2"/>${d.map((x,i)=>`<circle cx="${i*40+10}" cy="${y(x[1])}" r="3" style="fill:var(--ac)"/><text x="${i*40+10}" y="86" font-size="9" text-anchor="middle" style="fill:var(--mu)">${x[0]}</text>`).join('')}</svg>`};
+const radar=v=>{const n=v.length,pt=(i,r)=>[100+r*Math.sin(i*2*Math.PI/n),100-r*Math.cos(i*2*Math.PI/n)].map(x=>x.toFixed(1));return`<svg viewBox="0 0 200 200" width="100%" style="max-width:230px">${[.33,.66,1].map(k=>`<polygon points="${v.map((_,i)=>pt(i,70*k).join(',')).join(' ')}" fill="none" style="stroke:var(--bd)"/>`).join('')}<polygon points="${v.map((x,i)=>pt(i,70*x[1]/100).join(',')).join(' ')}" style="fill:color-mix(in srgb,var(--ok) 30%,transparent);stroke:var(--ok)" stroke-width="2"/>${v.map((x,i)=>{const q=pt(i,88);return`<text x="${q[0]}" y="${q[1]}" font-size="9" text-anchor="middle" style="fill:var(--mu)">${x[0]}</text>`}).join('')}</svg>`};
+const mf=e=>e?`<table class="kv">${[['Evidence ID',e.id],['File type',e.cat],['Uploaded by',e.by],['Upload time',new Date(e.ts).toLocaleString()],['Software',(e.exif&&e.exif.Software)||'None recorded'],['Size',fm(e.size)]].map(r=>`<tr><td class="mu">${r[0]}</td><td>${esc(r[1])}</td></tr>`).join('')}</table>`:'<p class="mu">No evidence yet.</p>';
+const health=()=>{const ok={Hash:!!(window.crypto&&crypto.subtle),Analysis:!!document.createElement('canvas').getContext,Storage:(()=>{try{localStorage.setItem('_t','1');localStorage.removeItem('_t');return true}catch(x){return false}})()};
+ return['Upload','Hash','Metadata','Analysis','Storage'].map(s=>{const up=ok[s]!==false,l=DB.lat[s];return`<div class="row" style="justify-content:space-between;margin:6px 0"><span class="${up?'ok':'er'}">●</span><span style="flex:1">${s}</span><span class="mu sm">${l!=null?l+' ms':'no data'}</span><span class="p ${up?'ok':'er'}">${up?'ACTIVE':'OFFLINE'}</span></div>`}).join('')};
+function dl(n,t,m){try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([t],{type:m}));a.download=n;document.body.appendChild(a);a.click();a.remove()}catch(x){}}
+const evj=id=>DB.ev.find(x=>x.id===id),logtxt=e=>e.chain.map(c=>[c.t,c.by,c.a,c.d,c.h].join('\t')).join('\n');
+const repc=e=>e?`<div class="c noprint"><h3>Report generation center</h3><button class="b" style="width:100%" onclick="S.rep='${e.id}';go('rep')">Generate forensic report</button><div class="row"><button class="s" onclick="S.rep='${e.id}';go('rep');setTimeout(print,300)">PDF</button><button class="s" onclick="dl('${e.id}.json',JSON.stringify(evj('${e.id}'),null,2),'application/json')">JSON</button><button class="s" onclick="dl('${e.id}-custody.txt',logtxt(evj('${e.id}')),'text/plain')">Evidence log</button></div><p class="mu sm">Downloads work when this file is opened from your computer or from GitHub Pages.</p></div>`:'';
+const stats=()=>{const E=DB.ev,tp=E.filter(e=>e.fails).length,fl=E.filter(e=>!e.fails&&e.risk!=='Low').length;
+ return`<div class="cards">${[['Total evidence',E.length,'tx','Good','records stored'],['Verified',E.length-tp-fl,'ok','Good','checks clear'],['Open alerts',fl+tp,'wa',fl+tp?'Review':'Good','flagged or tampered'],['Tampered',tp,'er',tp?'Alert':'Good','hash integrity failures']].map(c=>`<div class="c"><div class="row" style="justify-content:space-between;margin:0"><span class="mu sm">${c[0]}</span><span class="p ${c[3]==='Good'?'ok':c[3]==='Alert'?'er':'wa'}">${c[3]}</span></div><div class="big" style="color:var(--${c[2]})">${c[1]}</div><div class="mu sm">${c[4]}</div></div>`).join('')}</div>`};
+const dz=()=>`<div class="dz" ondragover="event.preventDefault()" ondrop="event.preventDefault();ingestAll(event.dataTransfer.files)" onclick="$('#fi').click()"><p><b>Drag and drop evidence files here, or tap to choose</b></p><p class="mu sm">Images, PDFs, video, audio, documents. Analysed inside your browser, never uploaded.</p></div><input id="fi" type="file" multiple hidden onchange="ingestAll(this.files)">`;
+V.dash=()=>{const E=DB.ev,e=last(),days=[...Array(7)].map((_,i)=>{const d=new Date(Date.now()-(6-i)*864e5).toDateString();return[d.slice(0,3),E.filter(x=>new Date(x.ts).toDateString()===d).length]}),ty=k=>E.filter(x=>x.cat===k).length,
+ vr=[['Verified',E.filter(x=>!x.fails&&x.risk==='Low').length,'ok'],['Flagged',E.filter(x=>!x.fails&&x.risk!=='Low').length,'wa'],['Tampered',E.filter(x=>x.fails).length,'er']],
+ ax=E.length?axes(E[0]).map((a,i)=>[a[0],Math.round(E.reduce((s,x)=>s+axes(x)[i][1],0)/E.length)]):['Hash','Analysis','Metadata','Timestamp','Source'].map(n=>[n,0]);
+ return`${stats()}<div class="g3w"><div class="c"><h3>Evidence upload</h3>${dz()}</div><div class="c"><h3>Processing pipeline</h3><div id="pipe">${pipe(busy)}</div></div></div><div class="c"><div class="row" style="justify-content:space-between;margin-top:0"><h3 style="margin:0">Evidence registry</h3><button class="s" onclick="refresh()">↻ Refresh</button></div>${table(E.slice().reverse().slice(0,8))}</div>${panels(e)}<h3>Analytics</h3><div class="g3w"><div class="c"><h4>Evidence distribution</h4>${pie([['Images',ty('image'),'ac'],['Documents',ty('document'),'ok'],['Video',ty('video'),'wa'],['Other',ty('other'),'er']])}</div><div class="c"><h4>Verification results</h4>${bars(vr)}</div><div class="c"><h4>Uploads over time</h4>${line(days)}</div><div class="c"><h4>Platform integrity</h4>${radar(ax)}</div></div><div class="g3w"><div class="c"><h3>Metadata forensics</h3>${mf(e)}</div>${repc(e)}<div class="c"><h3>System health monitor</h3>${health()}<p class="mu sm">Timings are measured in this browser during the last upload.</p></div></div>`};
+V.up=()=>{const e=last();return`<div class="c"><h3>Evidence upload</h3>${dz()}</div><div class="c"><h3>Processing pipeline</h3><div id="pipe">${pipe(busy)}</div></div>${e?`<div class="c"><h3>Latest result</h3><div class="row" style="justify-content:space-between"><div><b>${esc(e.name)}</b><div class="mu sm mono">${e.id}, ${e.hash.slice(0,16)}…, ${fm(e.size)}</div></div><span class="p ${stc(e)}">${e.fails?'Tampered':e.risk==='Low'?'Verified: likely authentic':'Flagged: '+e.risk+' risk'}</span></div></div>`:''}${panels(e)}${e?`<div class="g3w"><div class="c"><h3>Metadata forensics</h3>${mf(e)}${meta(e)}</div>${repc(e)}</div>`:''}`};
+V.news=()=>{const n=S.news;return`<div class="g3w"><div class="c"><h3>Submit claim</h3><p class="mu sm">Type or paste the headline or claim from your image or document. Automatic text extraction (OCR) needs the Python backend.</p><textarea id="nt" rows="5" placeholder="Paste the claim to check">${esc(S.nt||'')}</textarea><button class="b" style="width:100%" onclick="newsScan()">Run claim check</button><h4>Verification layers</h4><p class="sm"><b>OCR extraction</b> <span class="mu">needs backend</span><br><b>Cross-referencing</b> <span class="mu">needs API keys</span><br><b>Wording analysis</b> <span class="p ok">active locally</span></p></div><div class="c">${n?newsRes(n):'<h3>Awaiting analysis</h3><p class="mu">Enter a claim to start the check.</p>'}</div></div>`};
+function newsScan(){const t=$('#nt').value.trim();S.nt=t;if(!t)return;
+ const w=[[/\b100\s*%|\bguaranteed|\bnever\b|\balways\b|\bproven|\bmiracle|\bsecret/i,'Absolute or exaggerated wording'],[/breaking|shocking|you won.?t believe|share before|forward this|urgent/i,'Sensational or viral-style phrasing'],[/[A-Z]{4,}.*[A-Z]{4,}/,'Heavy use of capital letters'],[/!{2,}/,'Repeated exclamation marks'],[/quantum|cure\b|instantly|ai (can|will)/i,'Extraordinary-claim keywords']],
+ hit=w.filter(x=>x[0].test(t)).map(x=>x[1]),src=/according to|reuters|bbc|ministry|university|study|report/i.test(t),ts=Math.max(-100,Math.min(100,(src?30:-10)-hit.length*30+(t.length>60?10:0)));
+ S.news={t,hit,ts,v:ts<=-40?'Likely fake':ts<20?'Unverified':'No red flags'};render()}
+const newsRes=n=>`<div class="row" style="justify-content:space-between"><div><div class="mu sm">Integrity verdict</div><h2 style="margin:0">${n.v}</h2></div><div style="text-align:right"><div class="mu sm">Wording score</div><b class="${n.ts<=-40?'er':n.ts<20?'wa':'ok'}" style="font-size:22px">${n.ts}</b></div></div><h4>Extracted analysis target</h4><blockquote class="c" style="font-family:Georgia,serif">${esc(n.t)}</blockquote><h4>Red flags found</h4>${n.hit.length?`<ul>${n.hit.map(x=>`<li>${x}</li>`).join('')}</ul>`:'<p class="mu">None.</p>'}<h4>Cross-verification sources</h4><div class="g3w">${['Google Fact Check','Grok','News API','Rapid API'].map(s=>`<div class="c"><div class="mu sm">${s}</div><b>Not connected</b></div>`).join('')}</div><p class="mu sm">This verdict comes only from local wording checks. It cannot confirm whether a claim is true. Real fact-checking needs the backend and API keys.</p><button class="s" onclick="S.news=null;S.nt='';render()">Dismiss and check a new claim</button>`;
+
+/* ---------- shell ---------- */
+function refresh(){try{const d=JSON.parse(localStorage.getItem('evl'));if(d&&d.ev)DB=d}catch(e){}DB.lat=DB.lat||{};busy=null;render()}
+function wipe(b){if(!b.dataset.c){b.dataset.c=1;b.textContent='Click again to erase everything';return}DB={ev:[],seq:0,lat:{}};S.cur=S.sel=S.cs=S.rep=null;save();render()}
+function theme(){const r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme: dark)').matches;r.dataset.theme=d?'light':'dark'}
+function go(v){S.v=v;S.sel=null;render();scrollTo(0,0)}
+function login(){const e=$('#em').value.trim(),p=$('#pw').value;if(!/^\S+@\S+\.\S+$/.test(e)||p.length<6){$('#err').textContent='Enter a valid email and a password of at least 6 characters.';return}
+ S.user={email:e,name:e.split('@')[0]};try{sessionStorage.setItem('evu',JSON.stringify(S.user))}catch(x){}render()}
+function logout(){S.user=null;try{sessionStorage.removeItem('evu')}catch(x){}render()}
+function render(){const a=$('#app');
+ if(!S.user){a.innerHTML=`<div class="c" style="max-width:380px;margin:12vh auto 0"><h2>EvidenceLens</h2><p class="mu">Digital evidence integrity platform</p><label>Email</label><input id="em" type="email" placeholder="officer@agency.gov"><label>Password</label><input id="pw" type="password" onkeydown="if(event.key==='Enter')login()"><button class="b" style="width:100%" onclick="login()">Sign in</button><p id="err" class="er"></p><p class="mu sm">Demo sign-in: any valid email and 6 or more characters. This is a local screen, not real authentication.</p></div>`;return}
+ const nav=[['dash','Dashboard Overview'],['ev','Evidence Management'],['up','Upload Evidence'],['ver','Hash Verification'],['chain','Chain of Custody'],['rep','Reports'],['news','News Verification']],cur=DB.ev.find(e=>e.id===S.sel);
+ a.innerHTML=`<div class="app"><nav class="noprint"><div class="logo">EvidenceLens</div><div class="mu sm" style="padding:0 10px 12px">${esc(S.user.email)}<br><span class="p ok">OFFICER</span></div>${nav.map(n=>`<button class="${S.v===n[0]?'on':''}" onclick="go('${n[0]}')">${n[1]}</button>`).join('')}</nav><main><div class="hd noprint"><input placeholder="Search evidence ID" value="${esc(S.q)}" onkeydown="if(event.key==='Enter'){S.q=this.value;S.f='all';go('ev')}"><button class="s" onclick="refresh()" aria-label="Refresh data">↻ Refresh</button><button class="s" onclick="S.f='flagged';go('ev')" aria-label="Alerts">🔔${(c=>c?`<sup class="er">${c}</sup>`:'')(DB.ev.filter(e=>e.fails||e.risk!=='Low').length)}</button><button class="s" onclick="theme()" aria-label="Toggle theme">◐</button><button class="s" onclick="logout()">Sign out</button></div>${V[S.v]()}</main></div>${cur?modal(cur):''}`}
+render();
+</script></body></html>
