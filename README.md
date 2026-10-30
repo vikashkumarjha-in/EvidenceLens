@@ -1,139 +1,114 @@
+<p align="center">
+  <img src="docs/assets/banner.svg" alt="EvidenceLens: digital evidence integrity and triage" width="100%">
+</p>
+<p align="center">
+  <a href="https://vikashkumarjha-in.github.io/EvidenceLens/"><b>Live demo</b></a> &nbsp;·&nbsp;
+  <a href="docs/PROJECT_OVERVIEW.md">Documentation</a> &nbsp;·&nbsp;
+  <a href="docs/TEST_PLAN.md">Test plan</a> &nbsp;·&nbsp;
+  <a href="https://github.com/vikashkumarjha-in/EvidenceLens/issues">Report an issue</a>
+</p>
+<p align="center">
+  <img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-2456d6">
+  <img alt="Version 1.0.0" src="https://img.shields.io/badge/version-1.0.0-2456d6">
+  <img alt="Status: prototype" src="https://img.shields.io/badge/status-prototype-b45309">
+  <img alt="Dependencies: none" src="https://img.shields.io/badge/dependencies-none-15803d">
+  <img alt="Privacy: runs locally" src="https://img.shields.io/badge/privacy-runs%20locally-15803d">
+  <img alt="Hosted on GitHub Pages" src="https://img.shields.io/badge/hosted%20on-GitHub%20Pages-24292f">
+</p>
 
-EvidenceLens
+> [!IMPORTANT]
+> **Intended use.** EvidenceLens is a triage and integrity-monitoring aid. Its findings are indicators, not proof of manipulation or authenticity, and the detection thresholds have not yet been validated against labelled datasets. Do not use it as the sole basis for a conclusion. See [Limitations](#limitations).
 
-Digital evidence integrity and triage tool that runs entirely in your browser.
+## Table of contents
+- [Overview](#overview)
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [How it works](#how-it-works)
+- [Quick start](#quick-start)
+- [Usage walkthrough](#usage-walkthrough)
+- [What is analysed](#what-is-analysed)
+- [Scoring](#scoring)
+- [Privacy and security](#privacy-and-security)
+- [Limitations](#limitations)
+- [Documentation](#documentation)
+- [Tech stack](#tech-stack)
+- [Project structure](#project-structure)
+- [Testing](#testing)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
 
-About
+## Overview
+Images, screenshots and documents are submitted as evidence in investigations, audits and disputes every day. Three problems keep recurring: there is no recorded baseline to prove a file is unchanged, handling steps are logged in documents that are easy to edit, and specialist tools are too heavy for a quick first look.
 
-EvidenceLens is a browser-based digital evidence integrity and triage tool. Add an image, PDF, or any file and EvidenceLens fixes its SHA-256 fingerprint, reads its metadata, checks JPEG images for signs of editing, records a tamper-evident chain of custody, and produces a report.
-Everything runs locally in your browser. No server, no install, no upload required.
-Live demo: github.io
+EvidenceLens addresses these in a single static web page. It fixes a SHA-256 fingerprint at intake, extracts metadata, runs a visual consistency check on JPEG images, and records every action in a hash-linked chain of custody. Every score is explained by a list of plain-language findings, and everything runs locally in the browser. Nothing is uploaded.
 
-Intended Use and Status
+**Who it is for:** digital forensics students and trainers, compliance and audit analysts, journalists and researchers doing a first check, and developers prototyping evidence workflows.
 
-EvidenceLens is a triage and integrity-monitoring aid and a working prototype (v1.0.0). Its findings are indicators, not proof of manipulation or authenticity, and the detection thresholds have not yet been validated against labeled datasets. Do not use it as the sole basis for a conclusion. See Limitations and docs/TEST_PLAN.md.
+## Screenshots
 
-Features
+| | |
+| :--- | :--- |
+| <img src="docs/screenshots/01-dashboard.png" alt="Dashboard overview" width="100%"><br><b>Dashboard overview.</b> Status cards, upload zone, pipeline and evidence registry. | <img src="docs/screenshots/02-upload-pipeline.png" alt="Upload pipeline and result" width="100%"><br><b>Upload and pipeline.</b> Five-stage processing with a live result. |
+| <img src="docs/screenshots/03-tamper-detection.png" alt="Tamper detection and authenticity engine" width="100%"><br><b>Tamper detection.</b> Gauges, ELA heatmap and authenticity breakdown. | <img src="docs/screenshots/04-evidence-detail.png" alt="Evidence detail" width="100%"><br><b>Evidence detail.</b> Hash, metadata, findings and custody trail. |
+| <img src="docs/screenshots/05-hash-verification.png" alt="Hash verification mismatch" width="100%"><br><b>Hash verification.</b> A changed file is reported as a mismatch. | <img src="docs/screenshots/06-chain-of-custody.png" alt="Chain of custody" width="100%"><br><b>Chain of custody.</b> Hash-linked timeline with an integrity check. |
+| <img src="docs/screenshots/07-analytics.png" alt="Analytics charts" width="100%"><br><b>Analytics.</b> Distribution, results, uploads over time and platform integrity. | <img src="docs/screenshots/08-report.png" alt="Investigation report" width="100%"><br><b>Report.</b> Printable investigation report with JSON and log export. |
+| <img src="docs/screenshots/09-news-verification.png" alt="News verification" width="100%"><br><b>News verification.</b> Wording-based red-flag check for a claim. | <img src="docs/screenshots/10-themes-mobile.png" alt="Dark and light themes and mobile layout" width="100%"><br><b>Themes and mobile.</b> Dark and light modes with a responsive layout. |
 
+## Features
 
-Section	What it does
-Dashboard Overview	Stat cards, upload zone, processing pipeline, evidence registry, tamper detection, authenticity engine, analytics (pie, bar, line, radar), metadata forensics, report center, system health.
-Evidence Management	Searchable, filterable registry with Refresh and Clear all data. Click a row for full detail.
-Upload Evidence	Drag and drop or tap to choose. Multiple files supported.
-Hash Verification	Re-select a file and compare its SHA-256 with the hash recorded at upload. A mismatch marks the evidence as tampered.
-Chain of Custody	Timeline of every action. Entries are linked by hash, so an edited entry is detected.
-Reports	Printable report, JSON export, and custody-log export.
-News Verification	Paste a claim for a wording-based check (see limitations).
+| Section | What it does |
+| :--- | :--- |
+| **Dashboard Overview** | Stat cards, upload zone, processing pipeline, evidence registry, tamper detection, authenticity engine, analytics, metadata forensics, report center and system health |
+| **Evidence Management** | Searchable, filterable registry with Refresh and Clear all data. Click a row for full detail |
+| **Upload Evidence** | Drag and drop or tap to choose. Multiple files supported |
+| **Hash Verification** | Re-select a file and compare its SHA-256 with the hash recorded at upload. A mismatch marks the evidence as tampered |
+| **Chain of Custody** | Timeline of every action. Entries are linked by hash, so an edited entry is detected |
+| **Reports** | Printable report, JSON export and custody-log export |
+| **News Verification** | Paste a claim for a wording-based check (see Limitations) |
 
+*Also included: light and dark themes, responsive layout, alert bell, and a system health monitor with timings measured in your browser.*
 
-What is Analysed
+## How it works
 
-• All files: SHA-256, real file type from magic bytes, extension mismatch detection.
-• JPEG images: EXIF metadata and an Error Level Analysis (ELA) heatmap.
-• PDF files: Creator, producer, creation, and modification dates.
-• Everything else: Hash and signature checks only.
-
-Documentation
-
-• Project overview: Purpose, problem, objectives, users, scope, intended use, success criteria.
-• Architecture: Components, data flow, data model, custody ledger, security model, decisions, target architecture.
-• Design: Information architecture, flows, components, visual system, accessibility.
-• Forensic methodology: Every technique, parameter, scoring rule, limitation, and reference.
-• Test plan: Functional test cases and the dataset validation protocol.
-• Contributing, Security, Changelog: Project rules and history.
-
-Quick Start
-
-1. Open the live demo or serve the file locally (see below).
-2. Sign in with any valid email and a password of 6 or more characters. This is a demo screen, not real authentication.
-3. Go to Upload Evidence and add a file. The pipeline runs: Upload ➔ Hash ➔ Metadata ➔ Analysis ➔ Report.
-4. Review the gauges, heatmap, findings, and custody timeline.
-5. Use Hash Verification later to confirm the file is unchanged, and Reports to print or export.
-
-How Scoring Works
-
-The score starts at 100 and loses points for each finding:
-• Extension mismatch (-30)
-• Editing software found in metadata (-25)
-• Uneven ELA compression error (up to -30)
-• Modified date differs from creation date (-10)
-• No embedded metadata (-12)
-Risk Tiers:
-• Low Risk: 80 or above
-• Medium Risk: 55 or above
-• High Risk: Below 55
-Full rationale and limits are located in docs/FORENSIC_METHODOLOGY.md.
-
-Privacy
-
-• Files are processed locally and never uploaded.
-• Only the hash, metadata, and analysis results are saved in your browser's localStorage. The file itself is not stored.
-• Data is completely private to each browser and address. Other visitors to the same link will see an empty tool.
-• Do not commit real evidence files to this repository.
-
-Limitations
-
-• Heuristics only: ELA and metadata checks can give false positives and false negatives.
-• Missing EXIF: Highly common for images passed through messaging apps, making it a weak signal.
-• Local UI gate: The sign-in page is purely a frontend demonstration. There is no database, real authentication, or multi-user support.
-• Custody chain: The ledger detects partial edits but cannot stop someone from rewriting the entire local chain. See the architecture document.
-• News Verification: Checks wording structures only. It cannot verify whether a claim is factually true. OCR and fact-check APIs require a backend and API keys, so the source cards show "Not connected".
-• Format constraints: PDF metadata is read only when stored as plain text. The ELA heatmap is exclusively for JPEGs.
-• Legal weight: Not suitable as court-ready evidence. Rules for electronic evidence differ strictly by jurisdiction. Consult qualified counsel and a certified practitioner.
-
-Run Locally
-
-Since this project consists of plain frontend assets, no build step is needed.
-bash
-git clone https://github.com
-cd evidencelens
+```mermaid
+flowchart LR
+    A["Select file"] --> B["Read bytes<br/>(local only)"]
+    B --> C["SHA-256 hash"]
+    C --> D["Type check and<br/>metadata extraction"]
+    D --> E["ELA (JPEG)<br/>and scoring"]
+    E --> F["Custody events<br/>linked by hash"]
+    F --> G["Dashboard, report<br/>and exports"]
+-------------------------------------------------------------------------------------------------
+The full architecture, data model and security model are in docs/ARCHITECTURE.md.Quick startUse it online: open the live demo.Run it locally. It is a single file, so there is nothing to build:Bashgit clone [https://github.com/vikashkumarjha-in/EvidenceLens.git](https://github.com/vikashkumarjha-in/EvidenceLens.git)
+cd EvidenceLens
 python -m http.server 8000
-Use code with caution.
-Open http://localhost:8000. You must use localhost or HTTPS, as the browser's Crypto API requires a secure context to compute hashes.
+Open http://localhost:8000. Use localhost or HTTPS, because the browser's hashing API needs a secure context.Deploy your own copy on GitHub Pages: fork the repository, open Settings > Pages, choose Deploy from a branch, branch main, folder / (root).Usage walkthroughSign in with any valid email and a password of 6 or more characters. This is a demo screen, not real authentication.Open Upload Evidence and add a file. The pipeline runs: Upload, Hash, Metadata, Analysis, Report.Review the gauges, heatmap, findings and custody timeline.Open Hash Verification later, select the same file, and confirm it still matches.Open Chain of Custody and run Verify chain integrity.Open Reports to print or save a PDF, or export JSON and the custody log.What is analysedFile typeChecks performedAny fileSHA-256, real type from magic bytes, extension mismatch detectionJPEGEXIF (creator, model, software, dates, GPS presence) and an Error Level Analysis heatmapPDFCreator, producer, creation and modification datesOther typesHash and signature checks onlyScoringThe authenticity score starts at 100 and loses points for each finding:FindingDeductionExtension does not match the real file type30Editing software named in metadata25Uneven ELA compression errorup to 30Modified date differs from creation date10No embedded metadata12Risk is Low at 80 or above, Medium at 55 or above, otherwise High. Weights are expert heuristics, not statistically calibrated probabilities. The full rationale is in docs/FORENSIC_METHODOLOGY.md.Privacy and securityFiles are processed locally and never uploaded. There are no network requests during analysis.Only the hash, metadata and results are saved, in your browser's localStorage. The file itself is not stored.Data is private to each browser and address. Other visitors to the same link see an empty tool.No third-party scripts, fonts or trackers.Do not commit real evidence files to this repository.To report a vulnerability, follow SECURITY.md.Limitations[!WARNING]Results are heuristic indicators. They can produce false positives and false negatives.Detection thresholds have not yet been validated against labelled datasets. The protocol is in docs/TEST_PLAN.md.Missing EXIF is common for images that passed through messaging apps, so it is a weak signal.The sign-in is a local UI gate. There is no database, real authentication or multi-user support.The custody chain detects partial edits but cannot stop someone who rewrites the whole chain. See the architecture document.News Verification checks wording only and cannot tell whether a claim is true. OCR and fact-check APIs need a backend and keys, so the source cards show "Not connected".PDF metadata is read only when stored as plain text. The heatmap is for JPEG only.Not suitable as court-ready evidence. Rules for electronic evidence differ by jurisdiction. Consult qualified counsel and a certified practitioner.DocumentationDocumentContentsProject overviewPurpose, problem, objectives, users, scope, intended use, success criteriaArchitectureComponents, data flow, data model, custody ledger, security model, decisions, target architectureDesignInformation architecture, flows, components, visual system, accessibilityForensic methodologyEvery technique, parameter, scoring rule, limitation and referenceTest planFunctional test cases and the dataset validation protocolChangelogRelease historyTech stackPlain HTML, CSS and JavaScript in one file, with no dependencies. It uses the Web Crypto API (SHA-256), the Canvas API (ELA) and localStorage. Charts are SVG and CSS.Project structurePlaintextEvidenceLens/
+├── index.html              Application (HTML, CSS and JavaScript)
+├── README.md
+├── LICENSE
+├── SECURITY.md
+├── CONTRIBUTING.md
+├── CHANGELOG.md
+└── docs/
+    ├── PROJECT_OVERVIEW.md
+    ├── ARCHITECTURE.md
+    ├── DESIGN.md
+    ├── FORENSIC_METHODOLOGY.md
+    ├── TEST_PLAN.md
+    ├── assets/             Banner
+    └── screenshots/        README images
+TestingRun the cases in docs/TEST_PLAN.md. Quick checks:A phone camera photo should show EXIF data and Low risk.An image forwarded through a messaging app should show "No embedded metadata".A PNG renamed to .jpg should show an extension mismatch.Edit and re-save an uploaded file, then verify it. The result should be a mismatch.
 
-Deploy on GitHub Pages
+**##Roadmap**
 
-1. Push index.html to the root of your main branch.
-2. Open your repository Settings and navigate to the Pages section.
-3. Under Build and deployment, choose Deploy from a branch.
-4. Select the main branch and set the folder to / (root), then click Save.
-5. After a minute or two, your site will be live at https://<username>.github.io/<repository>/.
+[x] SHA-256 hashing, file type validation, EXIF and PDF metadata[x] ELA heatmap and transparent scoring[x] Hash-linked chain of custody and hash verification[x] Dashboard, analytics, reports and exports[ ] Validation against public tampering datasets with published results[ ] FastAPI backend with PostgreSQL and JWT authentication[ ] Signed or server-anchored custody ledger[ ] Server-side OCR and real fact-check API lookups[ ] Copy-move, double-JPEG and noise-residual detection, and an ML classifier[ ] Video and audio metadata through ffprobe[ ] Keyboard-accessible tables and dialogs
 
-Testing
+**##Contributing**
+Contributions are welcome. Please read CONTRIBUTING.md first. It lists the project rules, such as never sending file data off the device and documenting any change to the scoring.
 
-Run the detailed test cases inside docs/TEST_PLAN.md. Quick validation options include:
-• Phone photo: Should preserve EXIF data and report a Low risk status.
-• Forwarded image: An image sent through messaging applications should show "No embedded metadata".
-• Extension mismatch: Rename a .png file to .jpg and upload it; it should trigger an extension mismatch alert.
-• Tamper detection: Edit and re-save an already uploaded file, then upload it to the verification tab to observe the hash mismatch.
+**## License**
+Released under the MIT License.
 
-Tech Stack
-
-• Plain HTML, CSS, and JavaScript structured into a clean execution format.
-• Zero external dependencies.
-• Leverages native web features: Web Crypto API (SHA-256), Canvas API (ELA), and localStorage.
-• Charts are constructed dynamically using native SVG and CSS styling rules.
-
-Roadmap
-
-• Validation against public tampering datasets and published research results.
-• FastAPI backend architecture utilizing PostgreSQL and JWT authentication.
-• Signed or server-anchored tamper-evident custody ledger.
-• Server-side OCR engine and real-time fact-checking API integration lookups.
-• Copy-move, double-JPEG, noise-residual detection, and an ML-based evaluation classifier.
-• Video and audio stream metadata filtering through ffprobe.
-• Fully keyboard-accessible data tables and modal dialogs.
-
-Contributing
-
-Please read CONTRIBUTING.md before submitting modifications. For reporting security vulnerabilities, please refer to SECURITY.md.
-
-License
-
-This project is open-source software licensed under the MIT License.
-
-Disclaimer
-
-This software is intended purely for educational and demonstration purposes. It is not a substitute for professional digital forensic analysis or formal legal advice.
-Built with 🛠️ by Vikash Kumar Jha.
-Mene ise pure Markdown (README.md) format me convert kar diya hai jise aap directly copy-paste kar sakte hain. Kya aap isme GitHub repository ke liye status badges (jaise license ya build status) ya fir installation steps me kuch badlav chahte hain?
+**##Disclaimer**
+For education and demonstration. Not a substitute for professional digital forensic analysis or legal advice.
