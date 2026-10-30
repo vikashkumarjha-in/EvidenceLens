@@ -2,7 +2,7 @@
   <img src="docs/assets/banner.png" alt="EvidenceLens: digital evidence integrity and triage" width="100%">
 </p>
 <p align="center">
-  <a href="https://vikashkumarjha-in.github.io/EvidenceLens/"><b>Live demo</b></a> &nbsp;·&nbsp;
+  <a href="https://evidencelens.vercel.app/"><b>Live demo</b></a> &nbsp;·&nbsp;
   <a href="docs/PROJECT_OVERVIEW.md">Documentation</a> &nbsp;·&nbsp;
   <a href="docs/TEST_PLAN.md">Test plan</a> &nbsp;·&nbsp;
   <a href="https://github.com/vikashkumarjha-in/EvidenceLens/issues">Report an issue</a>
