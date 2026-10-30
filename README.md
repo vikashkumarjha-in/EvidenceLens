@@ -49,11 +49,11 @@ EvidenceLens addresses these in a single static web page. It fixes a SHA-256 fin
 
 | | |
 | :--- | :--- |
-| <img src="docs/screenshots/01-dashboard.png" alt="Dashboard overview" width="100%"><br><b>Dashboard overview.</b> Status cards, upload zone, pipeline and evidence registry. | <img src="docs/screenshots/02-upload-pipeline.png" alt="Upload pipeline and result" width="100%"><br><b>Upload and pipeline.</b> Five-stage processing with a live result. |
-| <img src="docs/screenshots/03-tamper-detection.png" alt="Tamper detection and authenticity engine" width="100%"><br><b>Tamper detection.</b> Gauges, ELA heatmap and authenticity breakdown. | <img src="docs/screenshots/04-evidence-detail.png" alt="Evidence detail" width="100%"><br><b>Evidence detail.</b> Hash, metadata, findings and custody trail. |
-| <img src="docs/screenshots/05-hash-verification.png" alt="Hash verification mismatch" width="100%"><br><b>Hash verification.</b> A changed file is reported as a mismatch. | <img src="docs/screenshots/06-chain-of-custody.png" alt="Chain of custody" width="100%"><br><b>Chain of custody.</b> Hash-linked timeline with an integrity check. |
-| <img src="docs/screenshots/07-analytics.png" alt="Analytics charts" width="100%"><br><b>Analytics.</b> Distribution, results, uploads over time and platform integrity. | <img src="docs/screenshots/08-report.png" alt="Investigation report" width="100%"><br><b>Report.</b> Printable investigation report with JSON and log export. |
-| <img src="docs/screenshots/09-news-verification.png" alt="News verification" width="100%"><br><b>News verification.</b> Wording-based red-flag check for a claim. | <img src="docs/screenshots/10-themes-mobile.png" alt="Dark and light themes and mobile layout" width="100%"><br><b>Themes and mobile.</b> Dark and light modes with a responsive layout. |
+| <img src="docs/screenshots/dashboard.png" alt="Dashboard overview" width="100%"><br><b>Dashboard overview.</b> Status cards, upload zone, pipeline and evidence registry. | <img src="docs/screenshots/upload-pipeline.png" alt="Upload pipeline and result" width="100%"><br><b>Upload and pipeline.</b> Five-stage processing with a live result. |
+| <img src="docs/screenshots/tamper-detection.png" alt="Tamper detection and authenticity engine" width="100%"><br><b>Tamper detection.</b> Gauges, ELA heatmap and authenticity breakdown. | <img src="docs/screenshots/evidence-detail.png" alt="Evidence detail" width="100%"><br><b>Evidence detail.</b> Hash, metadata, findings and custody trail. |
+| <img src="docs/screenshots/hash-verification.png" alt="Hash verification mismatch" width="100%"><br><b>Hash verification.</b> A changed file is reported as a mismatch. | <img src="docs/screenshots/chain-of-custody.png" alt="Chain of custody" width="100%"><br><b>Chain of custody.</b> Hash-linked timeline with an integrity check. |
+| <img src="docs/screenshots/analytics.png" alt="Analytics charts" width="100%"><br><b>Analytics.</b> Distribution, results, uploads over time and platform integrity. | <img src="docs/screenshots/report.png" alt="Investigation report" width="100%"><br><b>Report.</b> Printable investigation report with JSON and log export. |
+| <img src="docs/screenshots/news-verification.png" alt="News verification" width="100%"><br><b>News verification.</b> Wording-based red-flag check for a claim. | <img src="docs/screenshots/themes-mobile.png" alt="Dark and light themes and mobile layout" width="100%"><br><b>Themes and mobile.</b> Dark and light modes with a responsive layout. |
 
 ## Features
 
@@ -73,14 +73,18 @@ EvidenceLens addresses these in a single static web page. It fixes a SHA-256 fin
 
 ```mermaid
 flowchart LR
-    A["Select file"] --> B["Read bytes<br/>(local only)"]
-    B --> C["SHA-256 hash"]
-    C --> D["Type check and<br/>metadata extraction"]
-    D --> E["ELA (JPEG)<br/>and scoring"]
-    E --> F["Custody events<br/>linked by hash"]
-    F --> G["Dashboard, report<br/>and exports"]
--------------------------------------------------------------------------------------------------
-The full architecture, data model and security model are in `docs/ARCHITECTURE.md`.
+  A["Select file"] --> B["Read bytes<br/>(local only)"]
+  B --> C["SHA-256 hash"]
+  C --> D["Type check and<br/>metadata extraction"]
+  D --> E["ELA (JPEG)<br/>and scoring"]
+  E --> F["Custody events<br/>linked by hash"]
+  F --> G["Dashboard, report<br/>and exports"]
+
+```
+
+The full architecture, data model and security model are in [docs/ARCHITECTURE.md](https://www.google.com/search?q=docs/ARCHITECTURE.md).
+
+```
 
 ## Quick start
 
