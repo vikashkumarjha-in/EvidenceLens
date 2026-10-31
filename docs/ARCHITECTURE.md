@@ -8,7 +8,7 @@
 
 The application is completely self-contained within the browser sandbox, providing strict data privacy by design. Raw evidence files never leave the examiner's machine.
 
-![EvidenceLens Architecture Overview](architecture.png)
+![EvidenceLens Architecture Overview](assets/screenshots/architecture.png)
 
 ---
 
