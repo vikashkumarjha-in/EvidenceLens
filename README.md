@@ -82,7 +82,7 @@ flowchart LR
 
 ```
 
-The full architecture, data model and security model are in [docs/ARCHITECTURE.md](https://www.google.com/search?q=docs/ARCHITECTURE.md).
+The full architecture, data model, and security model are available in the [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) file.
 
 ```
 
